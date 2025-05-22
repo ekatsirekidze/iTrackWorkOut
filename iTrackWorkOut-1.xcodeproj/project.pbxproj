@@ -18,6 +18,11 @@
 		CC62A45D2DD8DF090092D76E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A45C2DD8DF090092D76E /* AuthService.swift */; };
 		CC62A4602DD8E2AF0092D76E /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = CC62A45F2DD8E2AF0092D76E /* GoogleSignIn */; };
 		CC62A4622DD8E2AF0092D76E /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CC62A4612DD8E2AF0092D76E /* GoogleSignInSwift */; };
+		CC62A4692DDE37A60092D76E /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A4682DDE37A60092D76E /* ProjectsView.swift */; };
+		CC62A46C2DDF81D50092D76E /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A46B2DDF81D40092D76E /* Project.swift */; };
+		CC62A46E2DDF85530092D76E /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A46D2DDF85530092D76E /* ExerciseCell.swift */; };
+		CC62A4702DDF85A50092D76E /* ProjectContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A46F2DDF85A50092D76E /* ProjectContentView.swift */; };
+		CC62A4722DDF86350092D76E /* ProjectTaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A4712DDF86350092D76E /* ProjectTaskDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +33,11 @@
 		CC62A4432DD522D60092D76E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CC62A4512DD527DE0092D76E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CC62A45C2DD8DF090092D76E /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		CC62A4682DDE37A60092D76E /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
+		CC62A46B2DDF81D40092D76E /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		CC62A46D2DDF85530092D76E /* ExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCell.swift; sourceTree = "<group>"; };
+		CC62A46F2DDF85A50092D76E /* ProjectContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectContentView.swift; sourceTree = "<group>"; };
+		CC62A4712DDF86350092D76E /* ProjectTaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTaskDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +76,8 @@
 		CC62A43B2DD522D40092D76E /* iTrackWorkOut-1 */ = {
 			isa = PBXGroup;
 			children = (
+				CC62A46A2DDF81B30092D76E /* Models */,
+				CC62A4632DDD16190092D76E /* ProjectsView */,
 				CC62A45B2DD8DEF00092D76E /* Services */,
 				CC62A43C2DD522D40092D76E /* iTrackWorkOutApp.swift */,
 				CC62A43E2DD522D40092D76E /* ContentView.swift */,
@@ -89,6 +101,25 @@
 				CC62A45C2DD8DF090092D76E /* AuthService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		CC62A4632DDD16190092D76E /* ProjectsView */ = {
+			isa = PBXGroup;
+			children = (
+				CC62A4682DDE37A60092D76E /* ProjectsView.swift */,
+				CC62A46D2DDF85530092D76E /* ExerciseCell.swift */,
+				CC62A46F2DDF85A50092D76E /* ProjectContentView.swift */,
+				CC62A4712DDF86350092D76E /* ProjectTaskDetailView.swift */,
+			);
+			path = ProjectsView;
+			sourceTree = "<group>";
+		};
+		CC62A46A2DDF81B30092D76E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CC62A46B2DDF81D40092D76E /* Project.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,9 +204,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC62A4702DDF85A50092D76E /* ProjectContentView.swift in Sources */,
+				CC62A4692DDE37A60092D76E /* ProjectsView.swift in Sources */,
+				CC62A4722DDF86350092D76E /* ProjectTaskDetailView.swift in Sources */,
 				CC62A45D2DD8DF090092D76E /* AuthService.swift in Sources */,
 				CC62A43F2DD522D40092D76E /* ContentView.swift in Sources */,
 				CC62A43D2DD522D40092D76E /* iTrackWorkOutApp.swift in Sources */,
+				CC62A46E2DDF85530092D76E /* ExerciseCell.swift in Sources */,
+				CC62A46C2DDF81D50092D76E /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

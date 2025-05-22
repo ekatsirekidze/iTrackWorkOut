@@ -10,11 +10,6 @@ import Firebase
 
 @main
 struct iTrackWorkOutApp: App {
-//    var body: some Scene {
-//        WindowGroup {
-//            ContentView()
-//        }
-//    }
     init() {
         FirebaseApp.configure()
     }
