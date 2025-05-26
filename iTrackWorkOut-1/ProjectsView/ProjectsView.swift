@@ -73,10 +73,11 @@ struct ProjectsView: View {
             priority: 3
         )
     ]
-
+    
     @State private var sortOrder = SortDescriptor(\Project.name)
     @State private var isSearching = false
     @State private var searchTerm = ""
+    
     private var searchResults: [SearchResult] {
         var result: [Project: SearchResult] = [:]
         

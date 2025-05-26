@@ -14,7 +14,6 @@
 		CC62A44C2DD524940092D76E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = CC62A44B2DD524940092D76E /* FirebaseAnalytics */; };
 		CC62A44E2DD524940092D76E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CC62A44D2DD524940092D76E /* FirebaseAuth */; };
 		CC62A4502DD524940092D76E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CC62A44F2DD524940092D76E /* FirebaseFirestore */; };
-		CC62A4522DD527DE0092D76E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CC62A4512DD527DE0092D76E /* GoogleService-Info.plist */; };
 		CC62A45D2DD8DF090092D76E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A45C2DD8DF090092D76E /* AuthService.swift */; };
 		CC62A4602DD8E2AF0092D76E /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = CC62A45F2DD8E2AF0092D76E /* GoogleSignIn */; };
 		CC62A4622DD8E2AF0092D76E /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CC62A4612DD8E2AF0092D76E /* GoogleSignInSwift */; };
@@ -23,6 +22,8 @@
 		CC62A46E2DDF85530092D76E /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A46D2DDF85530092D76E /* ExerciseCell.swift */; };
 		CC62A4702DDF85A50092D76E /* ProjectContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A46F2DDF85A50092D76E /* ProjectContentView.swift */; };
 		CC62A4722DDF86350092D76E /* ProjectTaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A4712DDF86350092D76E /* ProjectTaskDetailView.swift */; };
+		CC62A4762DEB37EC0092D76E /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A4752DEB37EC0092D76E /* SignInView.swift */; };
+		CC62A4782DEB3B700092D76E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CC62A4772DEB3B700092D76E /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,13 +32,15 @@
 		CC62A43E2DD522D40092D76E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CC62A4402DD522D60092D76E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC62A4432DD522D60092D76E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CC62A4512DD527DE0092D76E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CC62A45C2DD8DF090092D76E /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		CC62A4682DDE37A60092D76E /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		CC62A46B2DDF81D40092D76E /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		CC62A46D2DDF85530092D76E /* ExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCell.swift; sourceTree = "<group>"; };
 		CC62A46F2DDF85A50092D76E /* ProjectContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectContentView.swift; sourceTree = "<group>"; };
 		CC62A4712DDF86350092D76E /* ProjectTaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTaskDetailView.swift; sourceTree = "<group>"; };
+		CC62A4752DEB37EC0092D76E /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		CC62A4772DEB3B700092D76E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CC62A47D2DEB4EDF0092D76E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +62,6 @@
 		CC62A4302DD522D40092D76E = {
 			isa = PBXGroup;
 			children = (
-				CC62A4512DD527DE0092D76E /* GoogleService-Info.plist */,
 				CC62A43B2DD522D40092D76E /* iTrackWorkOut-1 */,
 				CC62A43A2DD522D40092D76E /* Products */,
 			);
@@ -76,6 +78,8 @@
 		CC62A43B2DD522D40092D76E /* iTrackWorkOut-1 */ = {
 			isa = PBXGroup;
 			children = (
+				CC62A47D2DEB4EDF0092D76E /* Info.plist */,
+				CC62A4772DEB3B700092D76E /* GoogleService-Info.plist */,
 				CC62A46A2DDF81B30092D76E /* Models */,
 				CC62A4632DDD16190092D76E /* ProjectsView */,
 				CC62A45B2DD8DEF00092D76E /* Services */,
@@ -83,6 +87,7 @@
 				CC62A43E2DD522D40092D76E /* ContentView.swift */,
 				CC62A4402DD522D60092D76E /* Assets.xcassets */,
 				CC62A4422DD522D60092D76E /* Preview Content */,
+				CC62A4752DEB37EC0092D76E /* SignInView.swift */,
 			);
 			path = "iTrackWorkOut-1";
 			sourceTree = "<group>";
@@ -192,8 +197,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC62A4442DD522D60092D76E /* Preview Assets.xcassets in Resources */,
+				CC62A4782DEB3B700092D76E /* GoogleService-Info.plist in Resources */,
 				CC62A4412DD522D60092D76E /* Assets.xcassets in Resources */,
-				CC62A4522DD527DE0092D76E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC62A4762DEB37EC0092D76E /* SignInView.swift in Sources */,
 				CC62A4702DDF85A50092D76E /* ProjectContentView.swift in Sources */,
 				CC62A4692DDE37A60092D76E /* ProjectsView.swift in Sources */,
 				CC62A4722DDF86350092D76E /* ProjectTaskDetailView.swift in Sources */,
@@ -347,6 +353,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"iTrackWorkOut-1/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iTrackWorkOut-1/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -375,6 +382,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"iTrackWorkOut-1/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iTrackWorkOut-1/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

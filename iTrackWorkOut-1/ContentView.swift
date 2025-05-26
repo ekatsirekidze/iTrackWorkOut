@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isLoggedIn: Bool = false
     var body: some View {
-        TabView {
-           ProjectsView()
-            
+        if isLoggedIn {
+                    TabView {
+                       ProjectsView()
+                        
+                    }
+        } else {
+            SignInView(isLoggedIn: $isLoggedIn)
         }
     }
 }

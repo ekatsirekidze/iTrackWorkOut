@@ -109,6 +109,10 @@ final class AuthService {
 
 private extension UIViewController {
     static func getRootViewController() -> UIViewController? {
-        return UIViewController()
+        return UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?.windows
+            .first(where: \.isKeyWindow)?
+            .rootViewController
     }
 }
