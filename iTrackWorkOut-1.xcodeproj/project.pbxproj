@@ -24,6 +24,8 @@
 		CC62A4722DDF86350092D76E /* ProjectTaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A4712DDF86350092D76E /* ProjectTaskDetailView.swift */; };
 		CC62A4762DEB37EC0092D76E /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A4752DEB37EC0092D76E /* SignInView.swift */; };
 		CC62A4782DEB3B700092D76E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CC62A4772DEB3B700092D76E /* GoogleService-Info.plist */; };
+		CC62A4802DF459320092D76E /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A47F2DF459320092D76E /* Stopwatch.swift */; };
+		CC62A4822DF45B1F0092D76E /* StopwatchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A4812DF45B1F0092D76E /* StopwatchData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		CC62A4752DEB37EC0092D76E /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		CC62A4772DEB3B700092D76E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CC62A47D2DEB4EDF0092D76E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC62A47F2DF459320092D76E /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
+		CC62A4812DF45B1F0092D76E /* StopwatchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,7 @@
 				CC62A4402DD522D60092D76E /* Assets.xcassets */,
 				CC62A4422DD522D60092D76E /* Preview Content */,
 				CC62A4752DEB37EC0092D76E /* SignInView.swift */,
+				CC62A47F2DF459320092D76E /* Stopwatch.swift */,
 			);
 			path = "iTrackWorkOut-1";
 			sourceTree = "<group>";
@@ -123,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				CC62A46B2DDF81D40092D76E /* Project.swift */,
+				CC62A4812DF45B1F0092D76E /* StopwatchData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -213,9 +219,11 @@
 				CC62A4702DDF85A50092D76E /* ProjectContentView.swift in Sources */,
 				CC62A4692DDE37A60092D76E /* ProjectsView.swift in Sources */,
 				CC62A4722DDF86350092D76E /* ProjectTaskDetailView.swift in Sources */,
+				CC62A4822DF45B1F0092D76E /* StopwatchData.swift in Sources */,
 				CC62A45D2DD8DF090092D76E /* AuthService.swift in Sources */,
 				CC62A43F2DD522D40092D76E /* ContentView.swift in Sources */,
 				CC62A43D2DD522D40092D76E /* iTrackWorkOutApp.swift in Sources */,
+				CC62A4802DF459320092D76E /* Stopwatch.swift in Sources */,
 				CC62A46E2DDF85530092D76E /* ExerciseCell.swift in Sources */,
 				CC62A46C2DDF81D50092D76E /* Project.swift in Sources */,
 			);
