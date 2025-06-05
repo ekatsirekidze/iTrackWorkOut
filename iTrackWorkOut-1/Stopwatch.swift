@@ -2,7 +2,7 @@
 //  Stopwatch.swift
 //  iTrackWorkOut-1
 //
-//  Created by X34 on 07.06.25.
+//  Created by X34 on 01.06.25.
 //
 
 import SwiftUI

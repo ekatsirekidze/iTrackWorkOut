@@ -10,11 +10,18 @@ import SwiftUI
 struct ContentView: View {
     @State var isLoggedIn: Bool = false
     var body: some View {
-        if isLoggedIn {
-                    TabView {
-                       ProjectsView()
-                        
+        if true {
+            TabView {
+                ProjectsView()
+                    .tabItem{
+                        Text("Projects")
                     }
+    
+                CalendarView()
+                    .tabItem {
+                        Text("calendar")
+                    }
+            }
         } else {
             SignInView(isLoggedIn: $isLoggedIn)
         }
@@ -27,4 +34,4 @@ struct ContentView: View {
 
 
 
-    
+

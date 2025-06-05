@@ -8,71 +8,7 @@
 import SwiftUI
 
 struct ProjectsView: View {
-    var projects: [Project] = [
-        Project(
-            name: "Leg day",
-            tasks: [
-                Task(
-                    name: "Squats",
-                    tags: ["Glutes", "Cardio"],
-                    startDate: Date(timeIntervalSinceNow: -86400 * 5),
-                    priority: 1,
-                    repeatDays: [.monday, .wednesday, .friday]
-                ),
-                Task(
-                    name: "Leg Press",
-                    tags: ["Legs"],
-                    startDate: Date(timeIntervalSinceNow: -86400 * 3),
-                    priority: 2,
-                    repeatDays: [.tuesday, .thursday]
-                )
-            ],
-            startDate: Date(timeIntervalSinceNow: -86400 * 7),
-            priority: 1
-        ),
-        Project(
-            name: "Back&Triceps",
-            tasks: [
-                Task(
-                    name: "Lat Pulldown",
-                    tags: ["Cool", "LoveIt"],
-                    startDate: Date(timeIntervalSinceNow: -86400 * 10),
-                    priority: 2,
-                    repeatDays: [.saturday]
-                ),
-                Task(
-                    name: "Cable Triceps",
-                    tags: ["SoHard"],
-                    startDate: Date(),
-                    priority: 3,
-                    repeatDays: []
-                )
-            ],
-            startDate: Date(timeIntervalSinceNow: -86400 * 30),
-            priority: 2
-        ),
-        Project(
-            name: "Chest,Shoulders&Biceps",
-            tasks: [
-                Task(
-                    name: "Pec Deck Fly",
-                    tags: ["Easy", "Chest"],
-                    startDate: Date(),
-                    priority: 1,
-                    repeatDays: [.monday, .tuesday]
-                ),
-                Task(
-                    name: "Biceps Curl",
-                    tags: ["Amazing", "LetsDoIt"],
-                    startDate: Date(timeIntervalSinceNow: 86400 * 2),
-                    priority: 2,
-                    repeatDays: [.friday, .saturday]
-                )
-            ],
-            startDate: Date(),
-            priority: 3
-        )
-    ]
+    var projects: [Project] = MockDataService.shared.getProjects()
     
     @State private var sortOrder = SortDescriptor(\Project.name)
     @State private var isSearching = false
