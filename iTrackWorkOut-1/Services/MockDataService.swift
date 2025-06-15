@@ -100,13 +100,32 @@ class MockDataService {
     }
     
     func getTags() -> [Tag] {
-        var tags = [
+        let tags = [
             Tag(name: "homeworkout"),
             Tag(name: "gym"),
             Tag(name: "cardio")
         ]
         
         return tags
+    }
+    
+    func getSettings() -> [Settings] {
+        [
+            .init(
+                firstName: "Eka",
+                lastName: "Tsirekidze",
+                email: "ekatsirekidze@gmail.com",
+                birthday: .init(),
+                notificationTime: .init(
+                    hour: 10,
+                    minute: 10
+                )
+            )
+        ]
+    }
+    
+    func updateSettings(with settings: Settings) {
+        // TODO: this func will update settings in future
     }
     
     private func createTime(startOffset: TimeInterval, duration: TimeInterval) -> Time {

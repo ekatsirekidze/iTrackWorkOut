@@ -539,7 +539,7 @@ extension DateFormatter {
     }()
 }
 
-struct Tag {
+struct Tag: Codable {
     var name: String
 }
 

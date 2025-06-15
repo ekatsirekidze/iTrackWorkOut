@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		CC40CE072DEC902E00001C7E /* TaskDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC40CE062DEC902E00001C7E /* TaskDetailPage.swift */; };
 		CC40CE092DEC95C700001C7E /* MockDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC40CE082DEC95C700001C7E /* MockDataService.swift */; };
+		CC40CE0B2E29411800001C7E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC40CE0A2E29411800001C7E /* Settings.swift */; };
+		CC40CE0D2E29436B00001C7E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC40CE0C2E29436B00001C7E /* SettingsView.swift */; };
 		CC62A43D2DD522D40092D76E /* iTrackWorkOutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A43C2DD522D40092D76E /* iTrackWorkOutApp.swift */; };
 		CC62A43F2DD522D40092D76E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A43E2DD522D40092D76E /* ContentView.swift */; };
 		CC62A4412DD522D60092D76E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC62A4402DD522D60092D76E /* Assets.xcassets */; };
@@ -34,6 +36,8 @@
 /* Begin PBXFileReference section */
 		CC40CE062DEC902E00001C7E /* TaskDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailPage.swift; sourceTree = "<group>"; };
 		CC40CE082DEC95C700001C7E /* MockDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataService.swift; sourceTree = "<group>"; };
+		CC40CE0A2E29411800001C7E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		CC40CE0C2E29436B00001C7E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		CC62A4392DD522D40092D76E /* iTrackWorkOut-1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iTrackWorkOut-1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC62A43C2DD522D40092D76E /* iTrackWorkOutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTrackWorkOutApp.swift; sourceTree = "<group>"; };
 		CC62A43E2DD522D40092D76E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 				CC62A4402DD522D60092D76E /* Assets.xcassets */,
 				CC62A4422DD522D60092D76E /* Preview Content */,
 				CC62A4752DEB37EC0092D76E /* SignInView.swift */,
+				CC40CE0C2E29436B00001C7E /* SettingsView.swift */,
 				CC62A47F2DF459320092D76E /* Stopwatch.swift */,
 			);
 			path = "iTrackWorkOut-1";
@@ -138,6 +143,7 @@
 			children = (
 				CC62A46B2DDF81D40092D76E /* Project.swift */,
 				CC62A4812DF45B1F0092D76E /* StopwatchData.swift */,
+				CC40CE0A2E29411800001C7E /* Settings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -233,6 +239,8 @@
 				CC62A4722DDF86350092D76E /* ProjectTaskDetailView.swift in Sources */,
 				CC62A4822DF45B1F0092D76E /* StopwatchData.swift in Sources */,
 				CC62A45D2DD8DF090092D76E /* AuthService.swift in Sources */,
+				CC40CE0D2E29436B00001C7E /* SettingsView.swift in Sources */,
+				CC40CE0B2E29411800001C7E /* Settings.swift in Sources */,
 				CC62A43F2DD522D40092D76E /* ContentView.swift in Sources */,
 				CC62A43D2DD522D40092D76E /* iTrackWorkOutApp.swift in Sources */,
 				CC62A4802DF459320092D76E /* Stopwatch.swift in Sources */,
