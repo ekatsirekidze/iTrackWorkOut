@@ -135,4 +135,8 @@ class MockDataService {
         let end = start.addingTimeInterval(duration)
         return Time(start: start, end: end)
     }
+    
+    func updateStopWatchData(with stopwatchData: StopwatchData) {
+        // TODO: this func will update settings in future
+    }
 }

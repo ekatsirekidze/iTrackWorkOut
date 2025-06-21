@@ -99,7 +99,7 @@ struct Stopwatch: View {
                                         Time(start: start, end: end)
                                     }
                                 )
-                                //context.insert(stopwatchData)
+                                MockDataService.shared.updateStopWatchData(with: stopwatchData)
                             }
                             dismiss()
                         }) {
