@@ -174,8 +174,3 @@ enum SearchResultFindReason: Hashable {
     case tag(String)
 }
 
-struct NewExerciseView: View {
-    var body: some View {
-        Text("New Exercise")
-    }
-}

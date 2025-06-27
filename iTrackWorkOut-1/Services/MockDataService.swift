@@ -6,10 +6,22 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseFirestore
+import FirebaseAuth
 
 class MockDataService {
     static let shared = MockDataService()
-    private init() { }
+    
+    let db = Firestore.firestore()
+    
+    let uid: String
+    
+    private init() {
+        if let user = Auth.auth().currentUser {
+            uid = user.uid
+        } else { uid = "" }
+    }
     
     func getProjects() -> [Project] {
         let calendar = Calendar(identifier: .gregorian)
@@ -107,6 +119,10 @@ class MockDataService {
         ]
         
         return tags
+    }
+    
+    func saveExercise(project: Project) {
+        // TODO: save exercise to database
     }
     
     func getSettings() -> [Settings] {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Project: Identifiable, Hashable {
+struct Project: Identifiable, Hashable, Codable {
     var id: UUID
     var name: String
     var tasks: [Task]
@@ -23,7 +23,7 @@ struct Project: Identifiable, Hashable {
     }
 }
 
-struct Task: Identifiable, Hashable {
+struct Task: Identifiable, Hashable, Codable {
     var id: UUID
     
     var name: String
