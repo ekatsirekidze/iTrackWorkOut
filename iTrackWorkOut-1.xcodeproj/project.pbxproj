@@ -32,6 +32,9 @@
 		CC62A4822DF45B1F0092D76E /* StopwatchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A4812DF45B1F0092D76E /* StopwatchData.swift */; };
 		CC62A4842DF45B1F0092D76E /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A4832DF45B1F0092D76E /* CalendarView.swift */; };
 		CCB2AF3A2E33DA5700423DEB /* NewExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2AF392E33DA5700423DEB /* NewExerciseView.swift */; };
+		CCB2AF422E342F9500423DEB /* NewTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2AF412E342F9500423DEB /* NewTaskView.swift */; };
+		CCB2AF442E34301900423DEB /* TagChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2AF432E34301900423DEB /* TagChoice.swift */; };
+		CCB2AF462E34306A00423DEB /* RepeatDaysChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2AF452E34306A00423DEB /* RepeatDaysChoice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +60,9 @@
 		CC62A4812DF45B1F0092D76E /* StopwatchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchData.swift; sourceTree = "<group>"; };
 		CC62A4832DF45B1F0092D76E /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		CCB2AF392E33DA5700423DEB /* NewExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExerciseView.swift; sourceTree = "<group>"; };
+		CCB2AF412E342F9500423DEB /* NewTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskView.swift; sourceTree = "<group>"; };
+		CCB2AF432E34301900423DEB /* TagChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagChoice.swift; sourceTree = "<group>"; };
+		CCB2AF452E34306A00423DEB /* RepeatDaysChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatDaysChoice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +143,9 @@
 				CC62A4712DDF86350092D76E /* ProjectTaskDetailView.swift */,
 				CC62A4832DF45B1F0092D76E /* CalendarView.swift */,
 				CC40CE062DEC902E00001C7E /* TaskDetailPage.swift */,
+				CCB2AF412E342F9500423DEB /* NewTaskView.swift */,
+				CCB2AF432E34301900423DEB /* TagChoice.swift */,
+				CCB2AF452E34306A00423DEB /* RepeatDaysChoice.swift */,
 			);
 			path = ProjectsView;
 			sourceTree = "<group>";
@@ -234,7 +243,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC40CE072DEC902E00001C7E /* TaskDetailPage.swift in Sources */,
+				CCB2AF442E34301900423DEB /* TagChoice.swift in Sources */,
 				CC62A4762DEB37EC0092D76E /* SignInView.swift in Sources */,
+				CCB2AF422E342F9500423DEB /* NewTaskView.swift in Sources */,
 				CC62A4702DDF85A50092D76E /* ProjectContentView.swift in Sources */,
 				CC62A4842DF45B1F0092D76E /* CalendarView.swift in Sources */,
 				CC62A4692DDE37A60092D76E /* ProjectsView.swift in Sources */,
@@ -249,6 +260,7 @@
 				CC62A43D2DD522D40092D76E /* iTrackWorkOutApp.swift in Sources */,
 				CC62A4802DF459320092D76E /* Stopwatch.swift in Sources */,
 				CC62A46E2DDF85530092D76E /* ExerciseCell.swift in Sources */,
+				CCB2AF462E34306A00423DEB /* RepeatDaysChoice.swift in Sources */,
 				CC62A46C2DDF81D50092D76E /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

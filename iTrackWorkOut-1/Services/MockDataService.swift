@@ -125,6 +125,10 @@ class MockDataService {
         // TODO: save exercise to database
     }
     
+    func addNewTask(to project: Project) {
+        // TODO: update project to database
+    }
+    
     func getSettings() -> [Settings] {
         [
             .init(
@@ -138,6 +142,10 @@ class MockDataService {
                 )
             )
         ]
+    }
+    
+    func deleteTask(task: Task) {
+        // TODO: delete task from database
     }
     
     func updateSettings(with settings: Settings) {

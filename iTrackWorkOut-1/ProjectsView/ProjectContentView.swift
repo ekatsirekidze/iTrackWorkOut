@@ -10,13 +10,14 @@ import SwiftUI
 
 struct ProjectContentView: View {
     
-    var exercise: Project
+    @State var exercise: Project
     @State private var isEditing = false
     @State private var selection = Set<UUID>()
     
     @State private var deleteDialogVisible = false
     @State private var moveDialogVisible = false
     
+    @Environment(\.editMode) var editMode
     
     var body: some View {
         NavigationStack {
@@ -42,34 +43,51 @@ struct ProjectContentView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
-                    
-                    Button {
-                        deleteDialogVisible = true
-                    } label: {
-                        Image(systemName: "trash")
-                    }
-                    .disabled(selection.isEmpty)
-                    .confirmationDialog(
-                        "Are you sure you want to delete \(selection.count) tasks?",
-                        isPresented: $deleteDialogVisible,
-                        titleVisibility: .visible
-                    ) {
-                        Button("Delete", role: .destructive) {
+                    if editMode!.wrappedValue == .inactive {
+                        NavigationLink(destination: NewTaskView(exercise: exercise)) {
+                            Image(systemName: "plus")
+                        }
+                    } else {
+                        Button {
+                            deleteDialogVisible = true
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                        .disabled(selection.isEmpty)
+                        .confirmationDialog(
+                            "Are you sure you want to delete \(selection.count) tasks?",
+                            isPresented: $deleteDialogVisible,
+                            titleVisibility: .visible
+                        ) {
+                            Button("Delete", role: .destructive) {
+                                let tasksToDelete = exercise.tasks.filter { selection.contains($0.id) }
+                                exercise.tasks.removeAll { selection.contains($0.id) }
+                                for task in tasksToDelete {
+                                    MockDataService.shared.deleteTask(task: task)
+                                }
+                                selection.removeAll()
+                            }
+                        }
+                        
+                        Button {
+                            moveDialogVisible = true
+                        } label: {
+                            Text("Move".localized)
+                        }
+                        .disabled(selection.isEmpty)
+                        .sheet(
+                            isPresented: $moveDialogVisible
+                        ) {
+                            ChooseProjectView(title: "Choose Project".localized) { newProject in
+                                guard var newProject = newProject else { return }
+                                let tasksToMove = exercise.tasks.filter { selection.contains($0.id) }
+                                exercise.tasks.removeAll { selection.contains($0.id) }
+                                newProject.tasks.append(contentsOf: tasksToMove)
+                                selection.removeAll()
+                            }
                         }
                     }
-                    
-                    Button {
-                        moveDialogVisible = true
-                    } label: {
-                        Text("Move")
-                    }
-                    .disabled(selection.isEmpty)
-                    .sheet(
-                        isPresented: $moveDialogVisible
-                    ) {
-                        ChooseProjectView(title: "Choose Project", projects: []){_ in }
-                        
-                    }
+                    EditButton()
                 }
             }
         }
@@ -79,7 +97,7 @@ struct ProjectContentView: View {
 struct ChooseProjectView: View {
     var title: String
     
-    var projects: [Project]
+    @State var projects: [Project] = []
     var onProjectChosen: (Project?) -> ()
     @Environment(\.dismiss) var dismiss
     
@@ -95,6 +113,9 @@ struct ChooseProjectView: View {
             } label: {
                 Text(project.name)
             }
+        }
+        .onAppear {
+            projects = MockDataService.shared.getProjects()
         }
     }
 }

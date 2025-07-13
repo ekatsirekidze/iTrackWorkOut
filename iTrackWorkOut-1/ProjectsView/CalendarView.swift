@@ -539,7 +539,9 @@ extension DateFormatter {
     }()
 }
 
-struct Tag: Codable {
+struct Tag: Codable, Identifiable {
+    var id: UUID = UUID()
+    
     var name: String
 }
 
