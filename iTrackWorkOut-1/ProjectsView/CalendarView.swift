@@ -119,7 +119,7 @@ struct CalendarView: View {
     private let calendar = Calendar.current
     @State private var styleIdx: Int = 0
     
-    var projects: [Project] = MockDataService.shared.getProjects()
+    @State var projects: [Project] = []
 
     private let daysOfWeek = DayOfWeek.all
 
@@ -165,6 +165,13 @@ struct CalendarView: View {
             }
             .padding([.leading, .trailing])
             .safeAreaPadding()
+            .task {
+                do {
+                    projects = try await MockDataService.shared.getProjects()
+                } catch {
+                    
+                }
+            }
         }
     }
     
@@ -182,7 +189,7 @@ func daysInMonth(date: Date) -> Int {
 
 struct ListView: View {
     var currentMonth: Date
-    var projects: [Project] = MockDataService.shared.getProjects()
+    @State var projects: [Project] = []
     var tags: [Tag] = MockDataService.shared.getTags()
     
     @State var isShowingPopover: Bool = false
@@ -312,6 +319,13 @@ struct ListView: View {
                     .background(Color(UIColor.systemBackground))
                     .cornerRadius(10)
                     .shadow(radius: 5)
+                    .task {
+                        do {
+                            projects = try await MockDataService.shared.getProjects()
+                        } catch {
+                            
+                        }
+                    }
                 }
             }
             
@@ -436,7 +450,7 @@ struct ListDayView: View {
 
 struct DayView: View {
     var date: Date
-    var projects = MockDataService.shared.getProjects()
+    @State var projects: [Project] = []
     var stopwatchData: [StopwatchData] = MockDataService.shared.getStopwatchData()
 
     private var allTasks: [Task] {
@@ -511,6 +525,13 @@ struct DayView: View {
             )
         }
         .buttonStyle(PlainButtonStyle())
+        .task {
+            do {
+                projects = try await MockDataService.shared.getProjects()
+            } catch {
+                
+            }
+        }
     }
 }
 

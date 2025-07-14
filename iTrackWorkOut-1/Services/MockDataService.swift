@@ -1,3 +1,78 @@
+////
+////  MockDataService.swift
+////  iTrackWorkOut-1
+////
+////  Created by X34 on 04.06.25.
+////
+//
+//import Foundation
+//import Firebase
+//import FirebaseFirestore
+//import FirebaseAuth
+//
+//class MockDataService {
+//    static let shared = MockDataService()
+//    
+//    let db = Firestore.firestore()
+//    
+//    let uid: String
+//    
+//    private init() {
+//        if let user = Auth.auth().currentUser {
+//            uid = user.uid
+//        } else { uid = "" }
+//    }
+//    
+//    func getProjects() -> [Project] {
+//       []
+//    }
+//    
+//    func getStopwatchData() -> [StopwatchData] {
+//    
+//        let calendar = Calendar(identifier: .gregorian)
+//
+//        let now =
+//                Calendar(identifier: .gregorian).date(from: DateComponents(year: 2025, month: 7, day: 1, hour: 12, minute: 0))!
+//        
+//        return []
+//        }
+//    
+//    func getTags() -> [Tag] {
+//        []
+//    }
+//    
+//    func saveTag(tag: Tag) {
+//        
+//    }
+//    
+//    func saveExercise(project: Project) {
+//        // TODO: save exercise to database
+//    }
+//    
+//    func addNewTask(to project: Project, task: Task) {
+//        // TODO: update project to database( add new task in projects)
+//    }
+//    
+//    func getSettings() -> [Settings] {
+//        []
+//    }
+//    
+//    func deleteTask(task: Task, project: Project) {
+//        // TODO: delete task from conrete project
+//    }
+//    
+//    func updateSettings(with settings: Settings) {
+//        // TODO: this func will update settings in future
+//    }
+//    
+//    func updateStopWatchData(with stopwatchData: StopwatchData) {
+//        // TODO: this func will update settings in future
+//    }
+//}
+
+
+
+
 //
 //  MockDataService.swift
 //  iTrackWorkOut-1
@@ -8,6 +83,7 @@
 import Foundation
 import Firebase
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 import FirebaseAuth
 
 class MockDataService {
@@ -20,147 +96,164 @@ class MockDataService {
     private init() {
         if let user = Auth.auth().currentUser {
             uid = user.uid
-        } else { uid = "" }
+        } else {
+            uid = ""
+        }
     }
-    
-    func getProjects() -> [Project] {
-        let calendar = Calendar(identifier: .gregorian)
-        let baseDate = calendar.date(from: DateComponents(year: 2025, month: 5, day: 20))!
 
-        let task1 = Task(
-            name: "Upper Body Workout",
-            tags: ["strength", "gym"],
-            startDate: calendar.date(byAdding: .day, value: 1, to: baseDate)!,
-            priority: 1,
-            repeatDays: [.monday, .wednesday, .friday]
-        )
-        
-        let task2 = Task(
-            name: "Cardio Session",
-            tags: ["cardio", "run"],
-            startDate: calendar.date(byAdding: .day, value: 2, to: baseDate)!,
-            priority: 2,
-            repeatDays: [.tuesday, .thursday]
-        )
-        
-        let task3 = Task(
-            name: "Yoga & Stretching",
-            tags: ["yoga", "flexibility"],
-            startDate: calendar.date(byAdding: .day, value: 3, to: baseDate)!,
-            priority: 3,
-            repeatDays: [.saturday, .sunday]
-        )
-        
-        let project1 = Project(
-            name: "Full Body Fitness Plan",
-            tasks: [task1, task2],
-            startDate: baseDate,
-            priority: 1
-        )
-        
-        let project2 = Project(
-            name: "Flexibility Improvement",
-            tasks: [task3],
-            startDate: calendar.date(byAdding: .day, value: 5, to: baseDate)!,
-            priority: 2
-        )
-        
-        let project3 = Project(
-            name: "General Health Routine",
-            tasks: [],
-            startDate: calendar.date(byAdding: .day, value: 7, to: baseDate)!,
-            priority: 3
-        )
-
-        return [project1, project2, project3]
-    }
+    // MARK: - PROJECTS
     
-    func getStopwatchData() -> [StopwatchData] {
-    
-        let calendar = Calendar(identifier: .gregorian)
-
-        let now =
-                Calendar(identifier: .gregorian).date(from: DateComponents(year: 2025, month: 7, day: 1, hour: 12, minute: 0))!
-        let stopwatchData =
-         [
-                StopwatchData(
-                    completionDate: calendar.date(byAdding: .day, value: -1, to: now)!,
-                    taskId: UUID(),
-                    times: [
-                        createTime(startOffset: -3600, duration: 1200), // 20 min
-                        createTime(startOffset: -1800, duration: 600)   // 10 min
-                    ]
-                ),
-                StopwatchData(
-                    completionDate: calendar.date(byAdding: .day, value: -2, to: now)!,
-                    taskId: UUID(),
-                    times: [
-                        createTime(startOffset: -7200, duration: 1800), // 30 min
-                        createTime(startOffset: -3600, duration: 900)   // 15 min
-                    ]
-                ),
-                StopwatchData(
-                    completionDate: calendar.date(byAdding: .day, value: -3, to: now)!,
-                    taskId: UUID(),
-                    times: [
-                        createTime(startOffset: -10800, duration: 600), // 10 min
-                        createTime(startOffset: -5400, duration: 1200)  // 20 min
-                    ]
-                )
-            ]
-        return stopwatchData
-    }
-    
-    func getTags() -> [Tag] {
-        let tags = [
-            Tag(name: "homeworkout"),
-            Tag(name: "gym"),
-            Tag(name: "cardio")
-        ]
+    @MainActor
+    func getProjects() async throws -> [Project] {
+        guard !uid.isEmpty else { return [] }
         
-        return tags
+        let snapshot = try await db.collection("users").document(uid)
+            .collection("projects")
+            .getDocuments()
+        
+        return snapshot.documents.compactMap { document in
+            try? document.data(as: Project.self)
+        }
     }
     
     func saveExercise(project: Project) {
-        // TODO: save exercise to database
+        guard !uid.isEmpty else { return }
+
+        do {
+            try db.collection("users").document(uid)
+                .collection("projects").document(project.id.uuidString)
+                .setData(from: project)
+        } catch {
+            print("Error saving project: \(error.localizedDescription)")
+        }
     }
-    
-    func addNewTask(to project: Project) {
-        // TODO: update project to database
+
+    func addNewTask(to project: Project, task: Task) {
+        guard !uid.isEmpty else { return }
+
+        var updatedProject = project
+        updatedProject.tasks.append(task)
+
+        saveExercise(project: updatedProject)
     }
-    
+
+    func deleteTask(task: Task, project: Project) {
+        guard !uid.isEmpty else { return }
+
+        var updatedProject = project
+        updatedProject.tasks.removeAll { $0.id == task.id }
+
+        saveExercise(project: updatedProject)
+    }
+
+    // MARK: - TAGS
+
+    func getTags() -> [Tag] {
+        var tags: [Tag] = []
+        guard !uid.isEmpty else { return tags }
+
+        let semaphore = DispatchSemaphore(value: 0)
+
+        db.collection("users").document(uid)
+            .collection("tags")
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error fetching tags: \(error)")
+                } else {
+                    tags = snapshot?.documents.compactMap {
+                        try? $0.data(as: Tag.self)
+                    } ?? []
+                }
+                semaphore.signal()
+            }
+
+        semaphore.wait()
+        return tags
+    }
+
+    func saveTag(tag: Tag) {
+        guard !uid.isEmpty else { return }
+
+        do {
+            try db.collection("users").document(uid)
+                .collection("tags").document(tag.id.uuidString)
+                .setData(from: tag)
+        } catch {
+            print("Error saving tag: \(error.localizedDescription)")
+        }
+    }
+
+    // MARK: - SETTINGS
+
     func getSettings() -> [Settings] {
-        [
-            .init(
-                firstName: "Eka",
-                lastName: "Tsirekidze",
-                email: "ekatsirekidze@gmail.com",
-                birthday: .init(),
-                notificationTime: .init(
-                    hour: 10,
-                    minute: 10
-                )
-            )
-        ]
+        var settingsList: [Settings] = []
+        guard !uid.isEmpty else { return settingsList }
+
+        let semaphore = DispatchSemaphore(value: 0)
+
+        db.collection("users").document(uid)
+            .collection("settings")
+            .document("main")
+            .getDocument { snapshot, error in
+                if let snapshot = snapshot,
+                   let settings = try? snapshot.data(as: Settings.self) {
+                    settingsList = [settings]
+                } else {
+                    print("Error fetching settings or no data.")
+                }
+                semaphore.signal()
+            }
+
+        semaphore.wait()
+        return settingsList
     }
-    
-    func deleteTask(task: Task) {
-        // TODO: delete task from database
-    }
-    
+
     func updateSettings(with settings: Settings) {
-        // TODO: this func will update settings in future
+        guard !uid.isEmpty else { return }
+
+        do {
+            try db.collection("users").document(uid)
+                .collection("settings").document("main")
+                .setData(from: settings)
+        } catch {
+            print("Error saving settings: \(error.localizedDescription)")
+        }
     }
-    
-    private func createTime(startOffset: TimeInterval, duration: TimeInterval) -> Time {
-        let now =
-                Calendar(identifier: .gregorian).date(from: DateComponents(year: 2025, month: 7, day: 1, hour: 12, minute: 0))!
-        let start = now.addingTimeInterval(startOffset)
-        let end = start.addingTimeInterval(duration)
-        return Time(start: start, end: end)
+
+    // MARK: - STOPWATCH DATA
+
+    func getStopwatchData() -> [StopwatchData] {
+        var stopwatchList: [StopwatchData] = []
+        guard !uid.isEmpty else { return stopwatchList }
+
+        let semaphore = DispatchSemaphore(value: 0)
+
+        db.collection("users").document(uid)
+            .collection("stopwatchData")
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error fetching stopwatch data: \(error)")
+                } else {
+                    stopwatchList = snapshot?.documents.compactMap {
+                        try? $0.data(as: StopwatchData.self)
+                    } ?? []
+                }
+                semaphore.signal()
+            }
+
+        semaphore.wait()
+        return stopwatchList
     }
-    
+
     func updateStopWatchData(with stopwatchData: StopwatchData) {
-        // TODO: this func will update settings in future
+        guard !uid.isEmpty else { return }
+
+        do {
+            try db.collection("users").document(uid)
+                .collection("stopwatchData")
+                .addDocument(from: stopwatchData)
+        } catch {
+            print("Error saving stopwatch data: \(error.localizedDescription)")
+        }
     }
 }

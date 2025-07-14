@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftData
 
 
-struct StopwatchData {
+struct StopwatchData: Codable {
     var completionDate: Date
     var times: [Time]
     var taskId: UUID
@@ -27,7 +27,7 @@ struct StopwatchData {
 
 }
 
-struct Time {
+struct Time: Codable {
     var start: Date
     var end: Date
     

@@ -40,8 +40,12 @@ struct NewExerciseView: View {
                 .disabled(name.isEmpty || existingProjects.contains(where: { $0.name.localizedLowercase == name.localizedLowercase }))
             }
         }
-        .onAppear {
-            existingProjects = MockDataService.shared.getProjects()
+        .task {
+            do {
+                existingProjects = try await MockDataService.shared.getProjects()
+            } catch {
+                
+            }
         }
     }
 }

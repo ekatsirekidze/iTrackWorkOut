@@ -98,9 +98,14 @@ struct TaskDetailPage: View {
                 }
                 
                 Spacer()
-            }.onAppear() {
-                self.stopwatchData = MockDataService.shared.getStopwatchData()
-                self.projects = MockDataService.shared.getProjects()
+            }
+            .task {
+                do {
+                    stopwatchData = MockDataService.shared.getStopwatchData()
+                    projects = try await MockDataService.shared.getProjects()
+                } catch {
+                    
+                }
             }
         }
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectsView: View {
-    var projects: [Project] = MockDataService.shared.getProjects()
+    @State var projects: [Project] = []
     
     @State private var sortOrder = SortDescriptor(\Project.name)
     @State private var isSearching = false
@@ -95,6 +95,13 @@ struct ProjectsView: View {
                     }
             )
             .searchable(text: $searchTerm, isPresented: $isSearching)
+            .task {
+                do {
+                    projects = try await MockDataService.shared.getProjects()
+                } catch {
+                    
+                }
+            }
         }
     }
 }

@@ -92,7 +92,7 @@ struct NewTaskView: View {
             trailing: Button("Save".localized) {
                 let newTask = Task(name: name, tags: tags, startDate: startDate, priority: 2, repeatDays: repeatDays)
                 exercise.tasks.append(newTask)
-                MockDataService.shared.addNewTask(to: exercise)
+                MockDataService.shared.addNewTask(to: exercise, task: newTask)
                 dismiss()
             }.disabled(name.isEmpty || exercise.tasks.contains { $0.name.localizedLowercase == name.localizedLowercase })
         )

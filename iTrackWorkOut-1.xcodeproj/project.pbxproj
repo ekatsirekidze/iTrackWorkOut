@@ -35,6 +35,7 @@
 		CCB2AF422E342F9500423DEB /* NewTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2AF412E342F9500423DEB /* NewTaskView.swift */; };
 		CCB2AF442E34301900423DEB /* TagChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2AF432E34301900423DEB /* TagChoice.swift */; };
 		CCB2AF462E34306A00423DEB /* RepeatDaysChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2AF452E34306A00423DEB /* RepeatDaysChoice.swift */; };
+		CCB2AF492E34EC3D00423DEB /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CCB2AF482E34EC3D00423DEB /* FirebaseFirestoreSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 				CC62A4602DD8E2AF0092D76E /* GoogleSignIn in Frameworks */,
 				CC62A44E2DD524940092D76E /* FirebaseAuth in Frameworks */,
 				CC62A4502DD524940092D76E /* FirebaseFirestore in Frameworks */,
+				CCB2AF492E34EC3D00423DEB /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +88,7 @@
 			children = (
 				CC62A43B2DD522D40092D76E /* iTrackWorkOut-1 */,
 				CC62A43A2DD522D40092D76E /* Products */,
+				CCB2AF472E34EC3D00423DEB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -160,6 +163,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		CCB2AF472E34EC3D00423DEB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -182,6 +192,7 @@
 				CC62A44F2DD524940092D76E /* FirebaseFirestore */,
 				CC62A45F2DD8E2AF0092D76E /* GoogleSignIn */,
 				CC62A4612DD8E2AF0092D76E /* GoogleSignInSwift */,
+				CCB2AF482E34EC3D00423DEB /* FirebaseFirestoreSwift */,
 			);
 			productName = "iTrackWorkOut-1";
 			productReference = CC62A4392DD522D40092D76E /* iTrackWorkOut-1.app */;
@@ -512,6 +523,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CC62A45E2DD8E2AF0092D76E /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		CCB2AF482E34EC3D00423DEB /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC62A44A2DD524940092D76E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

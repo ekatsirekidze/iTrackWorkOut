@@ -63,7 +63,7 @@ struct ProjectContentView: View {
                                 let tasksToDelete = exercise.tasks.filter { selection.contains($0.id) }
                                 exercise.tasks.removeAll { selection.contains($0.id) }
                                 for task in tasksToDelete {
-                                    MockDataService.shared.deleteTask(task: task)
+                                    MockDataService.shared.deleteTask(task: task, project: exercise)
                                 }
                                 selection.removeAll()
                             }
@@ -114,8 +114,12 @@ struct ChooseProjectView: View {
                 Text(project.name)
             }
         }
-        .onAppear {
-            projects = MockDataService.shared.getProjects()
+        .task {
+            do {
+                projects = try await MockDataService.shared.getProjects()
+            } catch {
+                
+            }
         }
     }
 }
