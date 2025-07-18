@@ -73,7 +73,9 @@ struct TagChoice: View {
                 }.disabled(selectedTags.isEmpty)
             )
             .onAppear {
-                settingsList = MockDataService.shared.getSettings()
+                Task {
+                    settingsList = try await MockDataService.shared.getSettings()
+                }
             }
         }
         

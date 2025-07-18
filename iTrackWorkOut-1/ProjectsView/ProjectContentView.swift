@@ -26,7 +26,7 @@ struct ProjectContentView: View {
                     Spacer()
                     Text("There are no tasks.")
                     NavigationLink("Add new task") {
-                        Text("New Task")
+                        NewTaskView(exercise: exercise)
                     }
                     Spacer()
                 }

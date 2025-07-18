@@ -71,7 +71,6 @@ struct ProjectsView: View {
                             for index in indexSet {
                             }
                         }
-                        .padding()
                         
                     }
                 } else if searchTerm.isEmpty {
@@ -85,6 +84,7 @@ struct ProjectsView: View {
                         }
                         
                     }
+                    .padding(.top, 400)
                 }
             }
             .navigationTitle("Projects")
@@ -133,12 +133,12 @@ struct ProjectSearchResultView: View {
         }
     }
 
-    private var sortedTasks: [Task] {
+    private var sortedTasks: [ProjectTask] {
         result.tasks.sorted { $0.id < $1.id }
     }
 
     @ViewBuilder
-    private func taskView(for task: Task) -> some View {
+    private func taskView(for task: ProjectTask) -> some View {
         VStack(alignment: .leading) {
             if result.findReasons.contains(.task(task.id)) {
                 Text("Task: \(task.name)")
@@ -170,7 +170,7 @@ struct SearchResult: Identifiable {
     var id: UUID = UUID()
     
     var project: Project
-    var tasks: Set<Task>
+    var tasks: Set<ProjectTask>
     var tags: Set<String>
     var findReasons: Set<SearchResultFindReason>
 }

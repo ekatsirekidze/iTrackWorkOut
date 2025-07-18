@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProjectTaskDetailView: View {
     var project: Project
-    var task: Task
+    var task: ProjectTask
     @State private var name: String = ""
     var body: some View {
         Form {

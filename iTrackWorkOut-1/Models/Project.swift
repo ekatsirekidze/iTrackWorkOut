@@ -10,11 +10,11 @@ import Foundation
 struct Project: Identifiable, Hashable, Codable {
     var id: UUID
     var name: String
-    var tasks: [Task]
+    var tasks: [ProjectTask]
     var startDate: Date
     var priority: Int
     
-    init(id: UUID = UUID(), name: String, tasks: [Task] = [], startDate: Date, priority: Int = 2) {
+    init(id: UUID = UUID(), name: String, tasks: [ProjectTask] = [], startDate: Date, priority: Int = 2) {
         self.id = id
         self.name = name
         self.tasks = tasks
@@ -23,7 +23,7 @@ struct Project: Identifiable, Hashable, Codable {
     }
 }
 
-struct Task: Identifiable, Hashable, Codable {
+struct ProjectTask: Identifiable, Hashable, Codable {
     var id: UUID
     
     var name: String

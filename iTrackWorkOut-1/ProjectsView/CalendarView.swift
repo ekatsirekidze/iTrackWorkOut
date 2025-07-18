@@ -190,7 +190,7 @@ func daysInMonth(date: Date) -> Int {
 struct ListView: View {
     var currentMonth: Date
     @State var projects: [Project] = []
-    var tags: [Tag] = MockDataService.shared.getTags()
+    @State var tags: [Tag] = []
     
     @State var isShowingPopover: Bool = false
     
@@ -227,11 +227,11 @@ struct ListView: View {
         return Array(result.values)
     }
 
-    private var allTasks: [Task] {
+    private var allTasks: [ProjectTask] {
         projects.flatMap { $0.tasks }
     }
     
-    func tasksInDay(date: Date) -> [Task] {
+    func tasksInDay(date: Date) -> [ProjectTask] {
         let componentsOfDate = Calendar.current.dateComponents([.day, .month, .year], from: date)
         return allTasks.filter { task in
             if task.startDate > Calendar.current.date(byAdding: .day, value: 1, to: date)! {
@@ -261,7 +261,7 @@ struct ListView: View {
             day: $0
         )}}
     
-    var taskInMonth: [(Date, [Task])] {dayInMonth.compactMap { ($0, tasksInDay(date: $0))}.filter { !$0.1.isEmpty}}
+    var taskInMonth: [(Date, [ProjectTask])] {dayInMonth.compactMap { ($0, tasksInDay(date: $0))}.filter { !$0.1.isEmpty}}
     
     var body: some View {
         VStack(){
@@ -322,6 +322,7 @@ struct ListView: View {
                     .task {
                         do {
                             projects = try await MockDataService.shared.getProjects()
+                            tags = try await MockDataService.shared.getTags()
                         } catch {
                             
                         }
@@ -361,20 +362,20 @@ struct ListView: View {
 
 struct ListDayView: View {
     var date: Date
-    var tasks: [Task]
+    var tasks: [ProjectTask]
     var f = 6
    
     
     
   
-    init(date: Date, tasks: [Task], f: Int = 6) {
+    init(date: Date, tasks: [ProjectTask], f: Int = 6) {
         self.date = date
         self.tasks = tasks
         self.f = f
     }
 
     // Example data
-    let stopwatchData: [StopwatchData] = MockDataService.shared.getStopwatchData()
+    @State var stopwatchData: [StopwatchData] = []
 //    = [
 //        StopwatchData(
 //            completionDate: calendar.date(byAdding: .day, value: -1, to: now)!,
@@ -445,18 +446,23 @@ struct ListDayView: View {
                             }
                         }
         }
+        .onAppear {
+            Task {
+                stopwatchData = try await MockDataService.shared.getStopwatchData()
+            }
+        }
     }
 }
 
 struct DayView: View {
     var date: Date
     @State var projects: [Project] = []
-    var stopwatchData: [StopwatchData] = MockDataService.shared.getStopwatchData()
+    @State var stopwatchData: [StopwatchData] = []
 
-    private var allTasks: [Task] {
+    private var allTasks: [ProjectTask] {
         projects.flatMap { $0.tasks }
     }
-    private var tasksToday: [Task] {
+    private var tasksToday: [ProjectTask] {
         let componentsOfDate = Calendar.current.dateComponents([.day, .month, .year], from: date)
         return allTasks.filter { task in
             if task.startDate > Calendar.current.date(byAdding: .day, value: 1, to: date)! {
@@ -528,6 +534,7 @@ struct DayView: View {
         .task {
             do {
                 projects = try await MockDataService.shared.getProjects()
+                stopwatchData = try await MockDataService.shared.getStopwatchData()
             } catch {
                 
             }

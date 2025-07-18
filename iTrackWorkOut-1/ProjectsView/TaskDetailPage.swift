@@ -42,10 +42,10 @@ struct TaskDetailPage: View {
         
         @State var stopwatchData: [StopwatchData] = []
         @State var projects: [Project] = []
-        private var allTasks: [Task] {
+        private var allTasks: [ProjectTask] {
             projects.flatMap { $0.tasks }
         }
-        private var tasksToday: [Task] {
+        private var tasksToday: [ProjectTask] {
             let componentsOfDate = Calendar.current.dateComponents([.day, .month, .year], from: date)
             return allTasks.filter { task in
                 if task.startDate > Calendar.current.date(byAdding: .day, value: 1, to: date)! {
@@ -101,7 +101,7 @@ struct TaskDetailPage: View {
             }
             .task {
                 do {
-                    stopwatchData = MockDataService.shared.getStopwatchData()
+                    stopwatchData = try await MockDataService.shared.getStopwatchData()
                     projects = try await MockDataService.shared.getProjects()
                 } catch {
                     
@@ -109,7 +109,7 @@ struct TaskDetailPage: View {
             }
         }
 
-        private func exerciseItemView(_ item: Task) -> some View {
+        private func exerciseItemView(_ item: ProjectTask) -> some View {
             let stopwatchDatum = stopwatchData.filter { $0.taskId == item.id && Calendar.current.isDate($0.completionDate, inSameDayAs: date) }.first
             
             let label = VStack {
@@ -168,7 +168,7 @@ struct TaskDetailPage: View {
             }
         }
         
-        private func discardStopwatchData(for task: Task) {
+        private func discardStopwatchData(for task: ProjectTask) {
             stopwatchData = stopwatchData.filter { $0.taskId == task.id }
             
         }

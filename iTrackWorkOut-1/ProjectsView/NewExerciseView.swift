@@ -35,7 +35,10 @@ struct NewExerciseView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Save".localized) {
                     let exercise = Project(name: name, startDate: .now, priority: 2)
-                    MockDataService.shared.saveExercise(project: exercise)
+                    Task {
+                        try await MockDataService.shared.saveExercise(project: exercise)
+                    }
+                    dismiss()
                 }
                 .disabled(name.isEmpty || existingProjects.contains(where: { $0.name.localizedLowercase == name.localizedLowercase }))
             }

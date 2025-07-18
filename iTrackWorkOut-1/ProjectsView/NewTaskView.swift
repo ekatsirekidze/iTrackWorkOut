@@ -90,7 +90,7 @@ struct NewTaskView: View {
                 dismiss()
             },
             trailing: Button("Save".localized) {
-                let newTask = Task(name: name, tags: tags, startDate: startDate, priority: 2, repeatDays: repeatDays)
+                let newTask = ProjectTask(name: name, tags: tags, startDate: startDate, priority: 2, repeatDays: repeatDays)
                 exercise.tasks.append(newTask)
                 MockDataService.shared.addNewTask(to: exercise, task: newTask)
                 dismiss()
@@ -104,8 +104,12 @@ struct NewTaskView: View {
             })
             .accentColor(settings?.accentColor.swiftuiAccentColor ?? .yellow)
         }
-        .onAppear {
-            settingsList = MockDataService.shared.getSettings()
+        .task {
+            do {
+                settingsList = try await MockDataService.shared.getSettings()
+            } catch {
+                
+            }
         }
     }
 }

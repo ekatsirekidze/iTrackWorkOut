@@ -116,39 +116,41 @@ class MockDataService {
         }
     }
     
-    func saveExercise(project: Project) {
+    @MainActor
+    func saveExercise(project: Project) async throws {
         guard !uid.isEmpty else { return }
 
-        do {
-            try db.collection("users").document(uid)
-                .collection("projects").document(project.id.uuidString)
-                .setData(from: project)
-        } catch {
-            print("Error saving project: \(error.localizedDescription)")
+        try await db.collection("users").document(uid)
+            .collection("projects").document(project.id.uuidString)
+            .setData(from: project)
+    }
+
+    func addNewTask(to project: Project, task: ProjectTask) {
+        Task {
+            guard !uid.isEmpty else { return }
+            
+            var updatedProject = project
+            updatedProject.tasks.append(task)
+            
         }
     }
 
-    func addNewTask(to project: Project, task: Task) {
-        guard !uid.isEmpty else { return }
-
-        var updatedProject = project
-        updatedProject.tasks.append(task)
-
-        saveExercise(project: updatedProject)
-    }
-
-    func deleteTask(task: Task, project: Project) {
+    func deleteTask(task: ProjectTask, project: Project) {
         guard !uid.isEmpty else { return }
 
         var updatedProject = project
         updatedProject.tasks.removeAll { $0.id == task.id }
+        let updatedConstantProject = updatedProject
 
-        saveExercise(project: updatedProject)
+        Task {
+            try await saveExercise(project: updatedConstantProject)
+        }
     }
 
     // MARK: - TAGS
 
-    func getTags() -> [Tag] {
+    func getTags() async -> [Tag] {
+       
         var tags: [Tag] = []
         guard !uid.isEmpty else { return tags }
 
@@ -172,20 +174,22 @@ class MockDataService {
     }
 
     func saveTag(tag: Tag) {
-        guard !uid.isEmpty else { return }
-
-        do {
-            try db.collection("users").document(uid)
-                .collection("tags").document(tag.id.uuidString)
-                .setData(from: tag)
-        } catch {
-            print("Error saving tag: \(error.localizedDescription)")
+        Task {
+            guard !uid.isEmpty else { return }
+            
+            do {
+                try db.collection("users").document(uid)
+                    .collection("tags").document(tag.id.uuidString)
+                    .setData(from: tag)
+            } catch {
+                print("Error saving tag: \(error.localizedDescription)")
+            }
         }
     }
 
     // MARK: - SETTINGS
 
-    func getSettings() -> [Settings] {
+    func getSettings() async -> [Settings] {
         var settingsList: [Settings] = []
         guard !uid.isEmpty else { return settingsList }
 
@@ -209,20 +213,22 @@ class MockDataService {
     }
 
     func updateSettings(with settings: Settings) {
-        guard !uid.isEmpty else { return }
-
-        do {
-            try db.collection("users").document(uid)
-                .collection("settings").document("main")
-                .setData(from: settings)
-        } catch {
-            print("Error saving settings: \(error.localizedDescription)")
+        Task {
+            guard !uid.isEmpty else { return }
+            
+            do {
+                try db.collection("users").document(uid)
+                    .collection("settings").document("main")
+                    .setData(from: settings)
+            } catch {
+                print("Error saving settings: \(error.localizedDescription)")
+            }
         }
     }
 
     // MARK: - STOPWATCH DATA
 
-    func getStopwatchData() -> [StopwatchData] {
+    func getStopwatchData() async -> [StopwatchData] {
         var stopwatchList: [StopwatchData] = []
         guard !uid.isEmpty else { return stopwatchList }
 
@@ -246,14 +252,16 @@ class MockDataService {
     }
 
     func updateStopWatchData(with stopwatchData: StopwatchData) {
-        guard !uid.isEmpty else { return }
-
-        do {
-            try db.collection("users").document(uid)
-                .collection("stopwatchData")
-                .addDocument(from: stopwatchData)
-        } catch {
-            print("Error saving stopwatch data: \(error.localizedDescription)")
+        Task {
+            guard !uid.isEmpty else { return }
+            
+            do {
+                try db.collection("users").document(uid)
+                    .collection("stopwatchData")
+                    .addDocument(from: stopwatchData)
+            } catch {
+                print("Error saving stopwatch data: \(error.localizedDescription)")
+            }
         }
     }
 }

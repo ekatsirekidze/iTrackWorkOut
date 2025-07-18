@@ -79,7 +79,11 @@ struct SettingsView: View {
             .navigationTitle(Text("Settings"))
         }
         .task {
-            settingsList = MockDataService.shared.getSettings()
+            do {
+                settingsList = try await MockDataService.shared.getSettings()
+            } catch {
+                
+            }
         }
     }
 
