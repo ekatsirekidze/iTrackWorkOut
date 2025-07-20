@@ -52,6 +52,10 @@ struct TagChoice: View {
                     Button(action: {
                         if var settings = settings {
                             settings.availableTags.append(Tag(name: newTagName))
+                            MockDataService.shared.updateSettings(with: settings)
+                            Task {
+                                settingsList = try await MockDataService.shared.getSettings()
+                            }
                         } else {
                             var settings = Settings()
                             settings.availableTags.append(Tag(name: newTagName))

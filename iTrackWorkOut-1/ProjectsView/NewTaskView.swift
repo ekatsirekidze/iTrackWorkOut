@@ -23,6 +23,8 @@ struct NewTaskView: View {
     @State private var showNewTagPopup = false
     @State private var repeatDays = Set<DayOfWeek>()
     
+    let callBack: (Project) -> Void
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -90,9 +92,11 @@ struct NewTaskView: View {
                 dismiss()
             },
             trailing: Button("Save".localized) {
-                let newTask = ProjectTask(name: name, tags: tags, startDate: startDate, priority: 2, repeatDays: repeatDays)
+                let newTask = ProjectTask(name: name, tags: tags, startDate: startDate, priority: priority, repeatDays: repeatDays)
+                print(newTask)
                 exercise.tasks.append(newTask)
                 MockDataService.shared.addNewTask(to: exercise, task: newTask)
+                callBack(exercise)
                 dismiss()
             }.disabled(name.isEmpty || exercise.tasks.contains { $0.name.localizedLowercase == name.localizedLowercase })
         )

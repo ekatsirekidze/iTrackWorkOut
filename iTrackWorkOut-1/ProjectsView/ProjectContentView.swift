@@ -26,7 +26,11 @@ struct ProjectContentView: View {
                     Spacer()
                     Text("There are no tasks.")
                     NavigationLink("Add new task") {
-                        NewTaskView(exercise: exercise)
+                        NewTaskView(exercise: exercise) { project in
+                            
+                            let pj = project
+                            self.exercise = pj
+                        }
                     }
                     Spacer()
                 }
@@ -44,7 +48,12 @@ struct ProjectContentView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
                     if editMode!.wrappedValue == .inactive {
-                        NavigationLink(destination: NewTaskView(exercise: exercise)) {
+                        NavigationLink(destination: NewTaskView(exercise: exercise) { project in
+                            
+                            let pj = project
+                            exercise = pj
+                        })
+ {
                             Image(systemName: "plus")
                         }
                     } else {
@@ -90,7 +99,7 @@ struct ProjectContentView: View {
                     EditButton()
                 }
             }
-        }
+        }.onAppear()
     }
 }
 

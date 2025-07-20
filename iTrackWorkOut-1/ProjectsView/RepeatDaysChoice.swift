@@ -15,7 +15,6 @@ struct RepeatDaysChoice: View {
             List {
                 ForEach(DayOfWeek.all) { dayOfWeek in
                     let dayName = dayOfWeek.string
-                    let localizedTitle = String(format: NSLocalizedString("EveryDayFormat", comment: ""), dayName)
                     CheckView(
                         isChecked: Binding(
                             get: { repeatDays.contains(dayOfWeek) },
@@ -27,7 +26,7 @@ struct RepeatDaysChoice: View {
                                 }
                             }
                         ),
-                        title: localizedTitle
+                        title: "Every \(dayName)"
                     )
                 }
             }

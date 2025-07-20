@@ -130,10 +130,43 @@ class MockDataService {
             guard !uid.isEmpty else { return }
             
             var updatedProject = project
-            updatedProject.tasks.append(task)
+            //updatedProject.tasks.append(task)
             
+            do {
+                try await updateProject(project: updatedProject)
+            } catch {
+                print("Failed to update project with new task: \(error)")
+            }
         }
     }
+    
+    @MainActor
+    func updateProject(project: Project) async throws {
+        guard !uid.isEmpty else { return }
+        
+        try db.collection("users")
+            .document(uid)
+            .collection("projects")
+            .document(project.id.uuidString)
+            .setData(from: project, merge: true) // merge:true preserves existing fields unless overwritten
+    }
+
+    func deleteProject(_ project: Project) {
+        Task {
+            guard !uid.isEmpty else { return }
+            
+            do {
+                try await db.collection("users")
+                    .document(uid)
+                    .collection("projects")
+                    .document(project.id.uuidString)
+                    .delete()
+            } catch {
+                print("Error deleting project: \(error.localizedDescription)")
+            }
+        }
+    }
+
 
     func deleteTask(task: ProjectTask, project: Project) {
         guard !uid.isEmpty else { return }
@@ -265,3 +298,194 @@ class MockDataService {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//import Foundation
+//import Firebase
+//import FirebaseFirestore
+//import FirebaseFirestoreSwift
+//import FirebaseAuth
+//
+//class MockDataService {
+//    static let shared = MockDataService()
+//    
+//    private let db = Firestore.firestore()
+//    private let uid: String
+//    
+//    private init() {
+//        if let user = Auth.auth().currentUser {
+//            uid = user.uid
+//        } else {
+//            uid = ""
+//        }
+//    }
+//
+//    // MARK: - PROJECTS
+//    
+//    @MainActor
+//    func getProjects() async throws -> [Project] {
+//        guard !uid.isEmpty else { return [] }
+//
+//        let snapshot = try await db.collection("users").document(uid).collection("projects").getDocuments()
+//        return snapshot.documents.compactMap { try? $0.data(as: Project.self) }
+//    }
+//
+//    @MainActor
+//    func saveExercise(project: Project) async throws {
+//        guard !uid.isEmpty else { return }
+//        try db.collection("users").document(uid)
+//            .collection("projects")
+//            .document(project.id.uuidString)
+//            .setData(from: project)
+//    }
+//
+//    func addNewTask(to project: Project, task: ProjectTask) {
+//        Task {
+//            guard !uid.isEmpty else { return }
+//
+//            var updatedProject = project
+//            updatedProject.tasks.append(task)
+//
+//            do {
+//                try await saveExercise(project: updatedProject)
+//            } catch {
+//                print("Failed to update project with new task: \(error)")
+//            }
+//        }
+//    }
+//
+//    func deleteTask(task: ProjectTask, from project: Project) {
+//        Task {
+//            guard !uid.isEmpty else { return }
+//
+//            var updatedProject = project
+//            updatedProject.tasks.removeAll { $0.id == task.id }
+//
+//            do {
+//                try await saveExercise(project: updatedProject)
+//            } catch {
+//                print("Error deleting task: \(error)")
+//            }
+//        }
+//    }
+//
+//    // MARK: - TAGS
+//
+//    func getTags() async -> [Tag] {
+//        guard !uid.isEmpty else { return [] }
+//
+//        do {
+//            let snapshot = try await db.collection("users").document(uid).collection("tags").getDocuments()
+//            return snapshot.documents.compactMap { try? $0.data(as: Tag.self) }
+//        } catch {
+//            print("Error fetching tags: \(error)")
+//            return []
+//        }
+//    }
+//
+//    func saveTag(tag: Tag) {
+//        Task {
+//            guard !uid.isEmpty else { return }
+//
+//            do {
+//                try db.collection("users").document(uid)
+//                    .collection("tags")
+//                    .document(tag.id.uuidString)
+//                    .setData(from: tag)
+//            } catch {
+//                print("Error saving tag: \(error)")
+//            }
+//        }
+//    }
+//
+//    // MARK: - SETTINGS
+//
+//    func getSettings() async -> Settings? {
+//        guard !uid.isEmpty else { return nil }
+//
+//        do {
+//            let doc = try await db.collection("users").document(uid).collection("settings").document("main").getDocument()
+//            return try doc.data(as: Settings.self)
+//        } catch {
+//            print("Error fetching settings: \(error)")
+//            return nil
+//        }
+//    }
+//
+//    func updateSettings(with settings: Settings) {
+//        Task {
+//            guard !uid.isEmpty else { return }
+//
+//            do {
+//                try db.collection("users").document(uid)
+//                    .collection("settings")
+//                    .document("main")
+//                    .setData(from: settings)
+//            } catch {
+//                print("Error updating settings: \(error)")
+//            }
+//        }
+//    }
+//
+//    // MARK: - STOPWATCH DATA
+//
+//    func getStopwatchData() async -> [StopwatchData] {
+//        guard !uid.isEmpty else { return [] }
+//
+//        do {
+//            let snapshot = try await db.collection("users").document(uid).collection("stopwatchData").getDocuments()
+//            return snapshot.documents.compactMap { try? $0.data(as: StopwatchData.self) }
+//        } catch {
+//            print("Error fetching stopwatch data: \(error)")
+//            return []
+//        }
+//    }
+//
+//    func updateStopWatchData(with stopwatchData: StopwatchData) {
+//        Task {
+//            guard !uid.isEmpty else { return }
+//
+//            do {
+//                try db.collection("users").document(uid)
+//                    .collection("stopwatchData")
+//                    .addDocument(from: stopwatchData)
+//            } catch {
+//                print("Error updating stopwatch data: \(error)")
+//            }
+//        }
+//    }
+//}

@@ -69,6 +69,9 @@ struct ProjectsView: View {
                         }
                         .onDelete { indexSet in
                             for index in indexSet {
+                                Task {
+                                    try await MockDataService.shared.deleteProject(projects[index])
+                                }
                             }
                         }
                         
@@ -84,7 +87,6 @@ struct ProjectsView: View {
                         }
                         
                     }
-                    .padding(.top, 400)
                 }
             }
             .navigationTitle("Projects")
