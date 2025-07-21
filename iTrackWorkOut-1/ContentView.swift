@@ -21,11 +21,12 @@ struct ContentView: View {
                     .tabItem {
                         Text("calendar")
                     }
-                
-                SettingsView()
-                    .tabItem {
-                        Text("Settings")
-                    }
+                NavigationStack {
+                    SettingsView()
+                        }
+                .tabItem {
+                    Text("Settings")
+                }
             }
         } else {
             SignInView(isLoggedIn: $isLoggedIn)

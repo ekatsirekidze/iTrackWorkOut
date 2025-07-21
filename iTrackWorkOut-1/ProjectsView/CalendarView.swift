@@ -319,14 +319,14 @@ struct ListView: View {
                     .background(Color(UIColor.systemBackground))
                     .cornerRadius(10)
                     .shadow(radius: 5)
-                    .task {
-                        do {
-                            projects = try await MockDataService.shared.getProjects()
-                            tags = try await MockDataService.shared.getTags()
-                        } catch {
-                            
-                        }
                     }
+                }
+            .task {
+                do {
+                    projects = try await MockDataService.shared.getProjects()
+                    tags = try await MockDataService.shared.getTags()
+                } catch {
+                    
                 }
             }
             

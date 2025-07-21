@@ -70,7 +70,11 @@ struct ProjectsView: View {
                         .onDelete { indexSet in
                             for index in indexSet {
                                 Task {
-                                    try await MockDataService.shared.deleteProject(projects[index])
+                                    do{
+                                        try await MockDataService.shared.deleteProject(projects[index])
+                                    } catch{
+                                        print(error)
+                                    }
                                 }
                             }
                         }

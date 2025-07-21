@@ -242,10 +242,12 @@ class MockDataService {
             }
 
         semaphore.wait()
+        print(settingsList)
         return settingsList
     }
 
     func updateSettings(with settings: Settings) {
+        
         Task {
             guard !uid.isEmpty else { return }
             

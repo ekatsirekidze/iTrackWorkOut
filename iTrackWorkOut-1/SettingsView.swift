@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 /// Constants for reuse and easy modification
 let dailyNotificationId = "DAILY_NOTIFICATION"
@@ -20,16 +19,25 @@ struct SettingsView: View {
     var settings: Settings? { settingsList.first }
 
     @State private var notificationPermission = UNAuthorizationStatus.notDetermined
+    
+    @State private var isReminderEnabled: Bool = false
+
 
     /// Function to update settings, creating new settings if none exist.
-    private func updateSettings(_ updateBlock: (_ settings: Settings) -> Void) {
-        let currentSettings = settings ?? createNewSettings()
-        updateBlock(currentSettings)
+    private func updateSettings(_ updateBlock: (_ settings: inout Settings) -> Void) {
+        var currentSettings = settings ?? createNewSettings()
+        updateBlock(&currentSettings)
+        
+        // Update the settingsList array to reflect changes
+        if settingsList.isEmpty {
+            settingsList.append(currentSettings)
+        } else {
+            settingsList[0] = currentSettings
+        }
     }
 
     private func createNewSettings() -> Settings {
         let newSettings = Settings()
-        MockDataService.shared.updateSettings(with: newSettings)
         return newSettings
     }
 
@@ -38,7 +46,7 @@ struct SettingsView: View {
         UNUserNotificationCenter.current()
             .removePendingNotificationRequests(withIdentifiers: [dailyNotificationId])
         if updatingDatabase {
-          //  updateSettings { $0.changeNotificationTime() }
+          updateSettings { $0.changeNotificationTime() }
         }
     }
 
@@ -55,9 +63,9 @@ struct SettingsView: View {
         )
 
         UNUserNotificationCenter.current().add(request)
-//        updateSettings {
-//           // $0.notificationTime = HourAndMinute(hour: dateComponents.hour ?? defaultHour, minute: dateComponents.minute ?? defaultMinute)
-//        }
+        updateSettings {
+            $0.notificationTime = HourAndMinute(hour: dateComponents.hour ?? defaultHour, minute: dateComponents.minute ?? defaultMinute)
+        }
     }
 
     /// Creating notification content to reduce complexity in scheduleDailyNotification
@@ -81,9 +89,23 @@ struct SettingsView: View {
         .task {
             do {
                 settingsList = try await MockDataService.shared.getSettings()
+                isReminderEnabled = settings?.notificationTime != nil
+
             } catch {
                 
             }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Save".localized) {
+                    Task {
+                        if let currentSettings = settings {
+                            try await MockDataService.shared.updateSettings(with: currentSettings)
+                        }
+                    }
+                }
+            }
+            
         }
     }
 
@@ -148,8 +170,18 @@ struct SettingsView: View {
     
     /// Extracting smaller view components
     private func dailyReminderToggle() -> some View {
-        Toggle(isOn: toggleBinding(), label: { Text("Daily Reminder".localized)})
+        Toggle("Daily Reminder".localized, isOn: $isReminderEnabled)
+            .onChange(of: isReminderEnabled) { newValue in
+                if newValue {
+                    // Toggle turned ON
+                    scheduleDailyNotification(for: DateComponents(calendar: .current, hour: defaultHour, minute: defaultMinute))
+                } else {
+                    // Toggle turned OFF
+                    removeDailyNotification()
+                }
+            }
             .font(.system(size: settings?.dynamicFontSize ?? 17))
+
     }
 
     private func notificationTimePicker() -> some View {
@@ -193,8 +225,7 @@ struct SettingsView: View {
             get: { self.settings?[keyPath: keyPath] ?? "" },
             set: { newValue in
                 self.updateSettings { settings in
-                    var mutableSettings = settings
-                    mutableSettings[keyPath: keyPath] = newValue
+                    settings[keyPath: keyPath] = newValue
                 }
             }
         )
@@ -205,8 +236,7 @@ struct SettingsView: View {
             get: { self.settings?[keyPath: keyPath] ?? Date() }, // Default to current date if nil
             set: { newValue in
                 self.updateSettings { settings in
-                    var mutableSettings = settings
-                    mutableSettings[keyPath: keyPath] = newValue
+                    settings[keyPath: keyPath] = newValue
                 }
             }
         )
@@ -217,8 +247,7 @@ struct SettingsView: View {
             get: { self.settings?[keyPath: keyPath] ?? 17 },
             set: { newValue in
                 self.updateSettings { settings in
-                    var mutableSettings = settings
-                    mutableSettings[keyPath: keyPath] = newValue
+                    settings[keyPath: keyPath] = newValue
                 }
             }
         )
@@ -229,8 +258,7 @@ struct SettingsView: View {
             get: { self.settings?[keyPath: keyPath] ?? defaultValue },
             set: { newValue in
                 self.updateSettings { settings in
-                    var mutableSettings = settings
-                    mutableSettings[keyPath: keyPath] = newValue
+                    settings[keyPath: keyPath] = newValue
                 }
             }
         )
