@@ -15,7 +15,6 @@ struct Stopwatch: View {
     @State var modelInserted = false
     @StateObject private var viewModel = StopwatchViewModel()
     @Environment(\.colorScheme) var colorScheme
-    @Environment(\.modelContext) var context
     @Environment(\.dismiss) var dismiss
     
     @State var manualStartDate: Date
@@ -91,6 +90,10 @@ struct Stopwatch: View {
                                 stopwatchData.times = viewModel.stopwatchData.map { (start, end) in
                                     Time(start: start, end: end)
                                 }
+                                MockDataService.shared.updateStopWatchData(
+                                    with: stopwatchData,
+                                    id: taskId
+                                )
                             } else {
                                 var stopwatchData = StopwatchData(
                                     completionDate: date,
@@ -99,7 +102,10 @@ struct Stopwatch: View {
                                         Time(start: start, end: end)
                                     }
                                 )
-                                MockDataService.shared.updateStopWatchData(with: stopwatchData)
+                                MockDataService.shared.updateStopWatchData(
+                                    with: stopwatchData,
+                                    id: taskId
+                                )
                             }
                             dismiss()
                         }) {

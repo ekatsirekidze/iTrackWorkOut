@@ -35,42 +35,15 @@ struct TaskDetailPage: View {
     struct TaskDetailView: View {
         var date: Date
         var maxViewDayCnt = 1 // use for count maxViewDate
-                
+        
         @State var showRestartStopwatchConfirmation = false
         @State var navigatingToStopwatch = false
         @State var continuingStopwatchDatum: StopwatchData?
         
         @State var stopwatchData: [StopwatchData] = []
         @State var projects: [Project] = []
-        private var allTasks: [ProjectTask] {
-            projects.flatMap { $0.tasks }
-        }
-        private var tasksToday: [ProjectTask] {
-            let componentsOfDate = Calendar.current.dateComponents([.day, .month, .year], from: date)
-            return allTasks.filter { task in
-                if task.startDate > Calendar.current.date(byAdding: .day, value: 1, to: date)! {
-                    // Task starts after today, therefore we're not interested
-                    return false
-                }
-                
-                let componentsOfTask = Calendar.current.dateComponents([.day, .month, .year], from: task.startDate)
-                if componentsOfDate == componentsOfTask {
-                    // If the task starts today, then it is okay
-                    return true
-                }
-                
-                var weekdayOfDate = (Calendar.current.dateComponents([.weekday], from: date).weekday! + 6) % 7
-                if weekdayOfDate == 0 { weekdayOfDate = 7 }
-                let weekday = DayOfWeek(rawValue: weekdayOfDate)!
-                if task.repeatDays.contains(weekday) {
-                    // The task repeats today, so it's okay
-                    return true
-                }
-                
-                // The task doesn't repeat today, don't use it
-                return false
-            }
-        }
+        @State private var allTasks: [ProjectTask] = []
+        @State private var tasksToday: [ProjectTask] = []
         
         init(date: Date) {
             self.date = date
@@ -82,7 +55,7 @@ struct TaskDetailPage: View {
             let minViewDate = Calendar.current.date(from: viewDateComponents)!
             let maxViewDate = Calendar.current.date(byAdding: .day, value: 1, to: minViewDate)!
         }
-
+        
         var body: some View {
             VStack(alignment: .leading, spacing: 10) {
                 ForEach(tasksToday.indices, id: \.self) { index in
@@ -99,16 +72,46 @@ struct TaskDetailPage: View {
                 
                 Spacer()
             }
-            .task {
-                do {
-                    stopwatchData = try await MockDataService.shared.getStopwatchData()
-                    projects = try await MockDataService.shared.getProjects()
-                } catch {
-                    
+            .onAppear {
+                Task {
+                    do {
+                        stopwatchData = try await MockDataService.shared.getStopwatchData()
+                        projects = try await MockDataService.shared.getProjects()
+                        allTasks = projects.flatMap { $0.tasks }
+                        tasksToday = {
+                            let componentsOfDate = Calendar.current.dateComponents([.day, .month, .year], from: date)
+                            return allTasks.filter { task in
+                                if task.startDate > Calendar.current.date(byAdding: .day, value: 1, to: date)! {
+                                    // Task starts after today, therefore we're not interested
+                                    return false
+                                }
+                                
+                                let componentsOfTask = Calendar.current.dateComponents([.day, .month, .year], from: task.startDate)
+                                if componentsOfDate == componentsOfTask {
+                                    // If the task starts today, then it is okay
+                                    return true
+                                }
+                                
+                                var weekdayOfDate = (Calendar.current.dateComponents([.weekday], from: date).weekday! + 6) % 7
+                                if weekdayOfDate == 0 { weekdayOfDate = 7 }
+                                let weekday = DayOfWeek(rawValue: weekdayOfDate)!
+                                if task.repeatDays.contains(weekday) {
+                                    // The task repeats today, so it's okay
+                                    return true
+                                }
+                                
+                                // The task doesn't repeat today, don't use it
+                                return false
+                            }
+                        }()
+                        print(tasksToday)
+                    } catch {
+                        
+                    }
                 }
             }
         }
-
+        
         private func exerciseItemView(_ item: ProjectTask) -> some View {
             let stopwatchDatum = stopwatchData.filter { $0.taskId == item.id && Calendar.current.isDate($0.completionDate, inSameDayAs: date) }.first
             
@@ -128,9 +131,9 @@ struct TaskDetailPage: View {
                 }
                 
             }
-            .padding()
-            .background(Color.gray.opacity(0.1))
-            .cornerRadius(10)
+                .padding()
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(10)
             
             if stopwatchDatum == nil {
                 return AnyView(
@@ -178,8 +181,8 @@ struct TaskDetailPage: View {
             navigatingToStopwatch = true
         }
     }
-
-
+    
+    
     
     
     

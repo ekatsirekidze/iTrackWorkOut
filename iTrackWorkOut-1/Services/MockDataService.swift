@@ -258,40 +258,88 @@ class MockDataService {
             }
         }
     }
-
-    // MARK: - STOPWATCH DATA
-
+    
     func getStopwatchData() async -> [StopwatchData] {
         var stopwatchList: [StopwatchData] = []
         guard !uid.isEmpty else { return stopwatchList }
 
-        let semaphore = DispatchSemaphore(value: 0)
+        do {
+            let projects = try await getProjects()
 
-        db.collection("users").document(uid)
-            .collection("stopwatchData")
-            .getDocuments { snapshot, error in
-                if let error = error {
-                    print("Error fetching stopwatch data: \(error)")
-                } else {
-                    stopwatchList = snapshot?.documents.compactMap {
-                        try? $0.data(as: StopwatchData.self)
-                    } ?? []
+            var allTasks: [(projectId: UUID, taskId: UUID)] = []
+
+            for project in projects {
+                for task in project.tasks {
+                    allTasks.append((project.id, task.id))
                 }
-                semaphore.signal()
             }
 
-        semaphore.wait()
+            // Fetch all stopwatchData in parallel
+            let stopwatchDataResults: [Task<[StopwatchData], Never>] = allTasks.map { pair in
+                Task {
+                    do {
+                        let snapshot = try await db.collection("users")
+                            .document(uid)
+                            .collection("projects")
+                            .document(pair.projectId.uuidString)
+                            .collection("tasks")
+                            .document(pair.taskId.uuidString)
+                            .collection("stopwatchData")
+                            .getDocuments()
+
+                        return snapshot.documents.compactMap {
+                            try? $0.data(as: StopwatchData.self)
+                        }
+                    } catch {
+                        print("❌ Failed to fetch stopwatch data for task \(pair.taskId): \(error)")
+                        return []
+                    }
+                }
+            }
+
+            for task in stopwatchDataResults {
+                let result = await task.value
+                stopwatchList.append(contentsOf: result)
+            }
+
+        } catch {
+            print("❌ Error fetching stopwatch data: \(error.localizedDescription)")
+        }
+
         return stopwatchList
     }
 
-    func updateStopWatchData(with stopwatchData: StopwatchData) {
+
+
+    func updateStopWatchData(with stopwatchData: StopwatchData, id: UUID) {
         Task {
             guard !uid.isEmpty else { return }
-            
+
             do {
-                try db.collection("users").document(uid)
+                let projects = try await MockDataService.shared.getProjects()
+
+                // Find the first project that contains the task with the given ID
+                guard let matchingProject = projects.first(where: { project in
+                    project.tasks.contains(where: { $0.id == id })
+                }) else {
+                    print("No matching project found for task ID: \(id)")
+                    return
+                }
+
+                let projectId = matchingProject.id
+
+                // Save stopwatchData under the full path
+                try db.collection("users")
+                    .document(uid)
+                    .collection("projects")
+                    .document(projectId.uuidString)
+                    .collection("tasks")
+                    .document(id.uuidString)
                     .collection("stopwatchData")
                     .addDocument(from: stopwatchData)
+
+                print("✅ Stopwatch data saved successfully.")
+
             } catch {
                 print("Error saving stopwatch data: \(error.localizedDescription)")
             }

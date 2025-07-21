@@ -11,6 +11,7 @@ import SwiftData
 
 
 struct StopwatchData: Codable {
+    //var id = UUID()
     var completionDate: Date
     var times: [Time]
     var taskId: UUID
