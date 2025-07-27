@@ -14,17 +14,25 @@ struct ContentView: View {
             TabView {
                 ProjectsView()
                     .tabItem{
+                        Image(systemName: "book.fill")
                         Text("Projects")
                     }
     
                 CalendarView()
                     .tabItem {
+                        Image(systemName: "calendar")
                         Text("calendar")
+                    }
+                ActivityListView()
+                    .tabItem {
+                        Image(systemName: "chart.bar")
+                        Text("Summary")
                     }
                 NavigationStack {
                     SettingsView()
                         }
                 .tabItem {
+                    Image(systemName: "gear")
                     Text("Settings")
                 }
             }

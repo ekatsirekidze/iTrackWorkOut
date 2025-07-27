@@ -11,6 +11,7 @@
 		CC40CE092DEC95C700001C7E /* MockDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC40CE082DEC95C700001C7E /* MockDataService.swift */; };
 		CC40CE0B2E29411800001C7E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC40CE0A2E29411800001C7E /* Settings.swift */; };
 		CC40CE0D2E29436B00001C7E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC40CE0C2E29436B00001C7E /* SettingsView.swift */; };
+		CC5776AC2E37DFD700CE5815 /* ActivityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5776AB2E37DFD700CE5815 /* ActivityListView.swift */; };
 		CC62A43D2DD522D40092D76E /* iTrackWorkOutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A43C2DD522D40092D76E /* iTrackWorkOutApp.swift */; };
 		CC62A43F2DD522D40092D76E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62A43E2DD522D40092D76E /* ContentView.swift */; };
 		CC62A4412DD522D60092D76E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC62A4402DD522D60092D76E /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 		CC40CE082DEC95C700001C7E /* MockDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataService.swift; sourceTree = "<group>"; };
 		CC40CE0A2E29411800001C7E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CC40CE0C2E29436B00001C7E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		CC5776AB2E37DFD700CE5815 /* ActivityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListView.swift; sourceTree = "<group>"; };
 		CC62A4392DD522D40092D76E /* iTrackWorkOut-1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iTrackWorkOut-1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC62A43C2DD522D40092D76E /* iTrackWorkOutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTrackWorkOutApp.swift; sourceTree = "<group>"; };
 		CC62A43E2DD522D40092D76E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				CC62A46F2DDF85A50092D76E /* ProjectContentView.swift */,
 				CC62A4712DDF86350092D76E /* ProjectTaskDetailView.swift */,
 				CC62A4832DF45B1F0092D76E /* CalendarView.swift */,
+				CC5776AB2E37DFD700CE5815 /* ActivityListView.swift */,
 				CC40CE062DEC902E00001C7E /* TaskDetailPage.swift */,
 				CCB2AF412E342F9500423DEB /* NewTaskView.swift */,
 				CCB2AF432E34301900423DEB /* TagChoice.swift */,
@@ -267,6 +270,7 @@
 				CC40CE0D2E29436B00001C7E /* SettingsView.swift in Sources */,
 				CCB2AF3A2E33DA5700423DEB /* NewExerciseView.swift in Sources */,
 				CC40CE0B2E29411800001C7E /* Settings.swift in Sources */,
+				CC5776AC2E37DFD700CE5815 /* ActivityListView.swift in Sources */,
 				CC62A43F2DD522D40092D76E /* ContentView.swift in Sources */,
 				CC62A43D2DD522D40092D76E /* iTrackWorkOutApp.swift in Sources */,
 				CC62A4802DF459320092D76E /* Stopwatch.swift in Sources */,
