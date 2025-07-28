@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State var isLoggedIn: Bool = false
     var body: some View {
-        if true {
+        if isLoggedIn {
             TabView {
                 ProjectsView()
                     .tabItem{
